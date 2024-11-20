@@ -1,0 +1,290 @@
+listmobil = [
+    {
+        'kode': 'A01',
+        'nama': 'Toyota Avanza',
+        'unit': 5, 
+        'tahun': 2020,
+        'harga': 2000000
+    },
+    {
+        'kode': 'A02',
+        'nama': 'Honda Brio',
+        'unit': 1, 
+        'tahun': 2019,
+        'harga': 2500000
+    },
+    {
+        'kode': 'A03',
+        'nama': 'Daihatsu Xenia',
+        'unit': 2, 
+        'tahun': 2023,
+        'harga': 2000000
+    },
+    {
+        'kode': 'A04',
+        'nama': 'Wuling',
+        'unit': 2, 
+        'tahun': 2020,
+        'harga': 3000000
+    }
+]
+cart = []
+
+def TampilkanDaftarMobil(): # Read Menu
+    while True:  
+        print('\nTampilkan Daftar Mobil')
+        print('1. Lihat semua mobil')
+        print('2. Lihat mobil berdasarkan kode nomor')
+        print('3. Akhiri program yes/no')
+        pilihan = input('Pilih opsi (1/3): ')
+
+        if pilihan == '1':
+            print('\nDaftar Mobil\n')
+            print(f'{"kode":<10}{"nama":<20}{"unit":<10}{"tahun":<6}{"harga":<10}{"Jenis":<10}')
+            # kode yang masuk merupakan tipe data str, data str tidak bisa di kombinasikan dengan data itg, penggunaan titik dua membantu dalam memberikan pernyataan perintah pada karakter di kolom print.
+            print('-' * 68)
+
+            for mobil in listmobil:
+                jenis = 'Luar Kota' if int(mobil["kode"][-1]) % 2 == 0 else 'Dalam Kota'
+                print(f'{mobil["kode"]:<10}{mobil["nama"]:<20}{mobil["unit"]:<10}{mobil["tahun"]:<6}{mobil["harga"]:<10}{jenis:<10}')
+            
+            input("\nTekan Enter untuk kembali ke menu Tampilkan Daftar Mobil...")
+
+        elif pilihan == '2':
+            print(f'{"kode":<10}')
+            print('-' * 10)
+
+            for mobil in listmobil:
+                print(f'{mobil["kode"]:<10}')
+
+            kode = input('Masukkan kode nomor mobil yang ingin dilihat: ').upper()
+            
+            for mobil in listmobil:
+                if mobil['kode'] == kode:
+                    jenis = 'Luar Kota' if int(mobil["kode"][-1]) % 2 == 0 else 'Dalam Kota'
+                    print('\nDetail Mobil')
+                    print(f'kode: {mobil["kode"]}')
+                    print(f'nama: {mobil["nama"]}')
+                    print(f'unit: {mobil["unit"]}')
+                    print(f'tahun: {mobil["tahun"]}')
+                    print(f'harga: {mobil["harga"]}')
+                    print(f'Jenis: {jenis}\n')
+                    break 
+            else:
+                print(f"\nMobil dengan kode {kode} tidak ditemukan.\n")
+
+            input("\nTekan Enter untuk kembali ke menu Tampilkan Daftar Mobil...")
+
+        elif pilihan == '3':
+            checker = input('Exit program yes/no: ')
+            if checker.lower() == 'yes':
+                print("Program akan keluar...")
+                break
+            else:
+                print("Kembali ke menu Tampilkan Daftar Mobil...")
+                
+
+        else:
+            print("Pilihan tidak valid, silakan coba lagi.")
+
+        
+
+     
+def TambahMobil(): # Create Menu
+ while True:
+    print('1. Tambah Mobil')
+    print('2. Akhiri Program yes/no')
+    pilihan = input('Pilih opsi (1/2): ')
+
+    if pilihan == '1':
+        print('\nTambah Mobil Baru\n(kode Genap untuk Luar Kota, Ex = A02.)\n(Kode Ganjil untuk Dalam kota, Ex=A03.)')
+        print(f'{"kode":<10}')
+        print('-' * 10)
+
+        for i, mobil in enumerate(listmobil, start=1):
+            print(f'{mobil["kode"]:<10}')
+        kode = input('Masukkan kode nomor: ').upper()
+        if any(mobil['kode'] == kode for mobil in listmobil):
+            print(f"Mobil dengan kode {kode} sudah ada. Kode harus unik.\n")
+            continue
+
+        nama = input('Masukkan nama mobil: ')
+        unit = int(input('Masukkan jumlah unit: '))
+        tahun = int(input('Masukkan tahun: '))
+        harga = int(input('Masukkan harga: '))
+        listmobil.append({'kode': kode, 'nama': nama, 'unit': unit, 'tahun': tahun, 'harga': harga})
+        print(f"Mobil dengan kode {kode} berhasil ditambahkan.\n")
+
+    
+    elif pilihan == '2':
+        checker = input('Exit program yes/no: ')
+        if checker.lower() == 'yes':
+            print("Program akan keluar...")
+            break
+
+def UpdateMobil():# UPDATE
+ while True:
+    print('1. Update Mobil')
+    print('2. Akhiri Program yes/no')
+    pilihan = input('Pilih opsi (1/2): ')
+
+    if pilihan == '1':
+        print('\nUpdate unit Mobil')
+        print(f'{"kode":<10}{"nama":<15}{"unit":<12}{"tahun":<6}{"harga":<10}{"Jenis":<10}')
+        print('-' * 68) 
+
+        for mobil in listmobil:
+            jenis = 'Luar Kota' if int(mobil["kode"][-1]) % 2 == 0 else 'Dalam Kota'
+            print(f'{mobil["kode"]:<10}{mobil["nama"]:<15}{mobil["unit"]:<12}{mobil["tahun"]:<6}{mobil["harga"]:<10}{jenis:<10}')
+        
+        kode = input('Masukkan kode nomor mobil yang ingin diupdate: ').upper()
+
+        for mobil in listmobil:
+            if mobil['kode'] == kode:
+                mobil['unit'] = int(input('Masukkan jumlah unit baru: '))
+                print(f"unit mobil dengan kode {kode} berhasil diupdate.\n")
+                break
+        else:
+            print(f"Mobil dengan kode {kode} tidak ditemukan.\n")
+
+    elif pilihan == '2':
+        checker = input('Exit program yes/no: ')
+        if checker.lower() == 'yes':
+            print("Program akan keluar...")
+            break 
+        
+
+def HapusMobil():# DELETE MENU
+ while True:
+    print('1. Hapus Daftar Mobil')
+    print('2. Akhiri Program yes/no')
+    pilihan = input('Pilih opsi (1/2): ')
+
+    if pilihan == '1':
+        print('\nHapus Mobil')
+        print(f'{"kode":<10}{"nama":<15}{"unit":<12}{"tahun":<6}{"harga":<10}{"Jenis":<10}')
+        print('-' * 68)
+
+        for mobil in listmobil:
+            jenis = 'Luar Kota' if int(mobil["kode"][-1]) % 2 == 0 else 'Dalam Kota'
+            print(f'{mobil["kode"]:<10}{mobil["nama"]:<15}{mobil["unit"]:<12}{mobil["tahun"]:<6}{mobil["harga"]:<10}{jenis:<10}')
+
+        kode = input('Masukkan kode nomor mobil yang ingin dihapus: ').upper()
+        
+        for mobil in listmobil:
+            if mobil['kode'] == kode:
+                listmobil.remove(mobil)
+                print(f"Mobil dengan kode {kode} berhasil dihapus.\n")
+                break
+
+    elif pilihan == '2':
+        checker = input('Exit program yes/no: ')
+        if checker.lower() == 'yes':
+            print("Program akan keluar...")
+            break 
+        
+
+def menuPeminjaman():
+    print('\nDaftar Mobil yang Tersedia untuk Dipinjam')
+    print(f'{"kode":<10}{"nama":<15}{"unit":<12}{"tahun":<6}{"harga":<10}')
+    print('-' * 58)
+
+    for mobil in listmobil:
+            jenis = 'Luar Kota' if int(mobil["kode"][-1]) % 2 == 0 else 'Dalam Kota'
+            print(f'{mobil["kode"]:<10}{mobil["nama"]:<15}{mobil["unit"]:<12}{mobil["tahun"]:<6}{mobil["harga"]:<10}{jenis:<10}')
+
+    while True:
+        kode = input('Masukkan kode mobil yang ingin dibeli: ').upper()
+        qtyUnit = int(input('Masukkan jumlah unit yang ingin dibeli: '))
+        
+   
+        mobil = next((m for m in listmobil if m['kode'] == kode), None)
+        
+        if mobil is None:
+            print(f"Mobil dengan kode {kode} tidak ditemukan.")
+        elif qtyUnit > mobil['unit']:
+            print(f'Unit tidak cukup, unit {kode} tinggal {mobil["unit"]}')
+            continue
+        else:
+            cart.append({
+                'kode': mobil['kode'], 
+                'unit': qtyUnit, 
+                'harga': mobil['harga'], 
+                'nama': mobil['nama'],
+                'tahun': mobil['tahun']
+            })
+        
+        print('Isi Cart:')
+        print('Kode\t| Unit\t| Harga')
+        for mobil in cart:
+            print(f'{mobil["kode"]}\t| {mobil["unit"]}\t| {mobil["harga"]}')
+          
+        
+        checker = input('Mau beli yang lain? (ya/tidak) = ')
+        if checker.lower() == 'tidak':
+            break
+
+    print('Daftar Belanja:')
+    print(f'{"kode":<10}{"nama":<15}{"unit":<12}{"tahun":<6}{"harga":<10}')
+
+    
+    totalHarga = 0
+    for mobil in cart:
+        print(f'{mobil["kode"]:<10}{mobil["nama"]:<15}{mobil["unit"]:<12}{mobil["tahun"]:<6}{mobil["harga"]:<10}')
+        totalHarga += mobil['unit'] * mobil['harga']
+    
+    while True:
+        print(f'Total Yang Harus Dibayar = {totalHarga}')
+        jmlUang = int(input('Masukkan jumlah uang: '))
+        
+        if jmlUang > totalHarga:
+            kembali = jmlUang - totalHarga
+            print(f'Terima kasih\n\nUang kembali anda: {kembali}')
+            for mobil in cart:
+                mobil_data = next((m for m in listmobil if m['kode'] == mobil['kode']), None)
+                if mobil_data:
+                    mobil_data['unit'] -= mobil['unit']
+            cart.clear()
+            break
+        elif jmlUang == totalHarga:
+            print('Terima kasih')
+            for mobil in cart:
+                mobil_data = next((m for m in listmobil if m['kode'] == mobil['kode']), None)
+                if mobil_data:
+                    mobil_data['unit'] -= mobil['unit']
+            cart.clear()
+            break
+        else:
+            kekurangan = totalHarga - jmlUang
+            print(f'Uang anda kurang sebesar {kekurangan}')
+            continue
+        
+def MenuUtama(): #MAIN MENU
+    while True:
+        print('\nMenu Utama')
+        print('1. Tampilkan Daftar Mobil')
+        print('2. Tambahkan Mobil')
+        print('3. Update Unit Mobil')
+        print('4. Hapus Mobil')
+        print('5. Peminjaman Mobil')
+        print('6. Exit Program')
+        pilihan = input('Pilih menu (1-6): ')
+        if pilihan == '1':
+            TampilkanDaftarMobil()
+        elif pilihan == '2':
+            TambahMobil()
+        elif pilihan == '3':
+            UpdateMobil()
+        elif pilihan == '4':
+            HapusMobil()
+        elif pilihan == '5':
+            menuPeminjaman ()
+        elif pilihan == '6':
+            print('Terima kasih telah menggunakan layanan ini!')
+            break
+        else:
+            print('Pilihan tidak valid. Silakan coba lagi.\n')
+             
+        
+
+MenuUtama()
